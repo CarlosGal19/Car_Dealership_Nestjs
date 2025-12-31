@@ -32,7 +32,35 @@ export class CarsService {
     return car;
   }
 
-  getCarsLength() {
-    return this.cars.length;
+  addCar(car: any) {
+    const id = Date.now();
+
+    const carToSave = { ...car, id };
+
+    this.cars.push(carToSave);
+
+    return { id: carToSave.id };
+  }
+
+  updateCar(bodyCar: any, carId: number) {
+    const carToUpdateIndex = this.cars.findIndex((car) => car.id === carId);
+
+    if (carToUpdateIndex === -1) {
+      throw new NotFoundException(`The car with id ${carId} does not exist`);
+    }
+
+    const carToUpdate = this.cars[carToUpdateIndex];
+
+    carToUpdate.name = bodyCar.name || carToUpdate.name;
+    carToUpdate.model = bodyCar.model || carToUpdate.model;
+
+    this.cars[carToUpdateIndex] = carToUpdate;
+
+    return { id: carId };
+  }
+
+  deleteCar(id: number) {
+    this.cars = this.cars.filter((car) => car.id !== id);
+    return { id }
   }
 }

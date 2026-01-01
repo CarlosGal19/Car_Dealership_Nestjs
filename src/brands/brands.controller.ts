@@ -9,8 +9,7 @@ import {
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { BrandsService } from './brands.service';
-import { CreateBrandDto } from './dto/create-brand.dto';
-import { UpdateBrandDto } from './dto/update-brand.dto';
+import { CreateBrandDto, UpdateBrandDto } from './dto';
 
 @Controller('brands')
 export class BrandsController {
